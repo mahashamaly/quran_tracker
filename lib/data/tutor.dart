@@ -4,8 +4,8 @@ class Tutor {
   String email;
   String password;
   String? qualifications;
-  String? evaluation; // جديد
-  String? notes;      // جديد
+  String? evaluation; 
+  String? notes;      
 
   Tutor({
     required this.id,
@@ -17,7 +17,9 @@ class Tutor {
     this.notes,
   });
 
-  // كائن فارغ لاستخدامه عند البحث
+  //سهولة إنشاء كائن فارغ جاهز للاستخدام
+  //من  خلاله بجنب قيمnull
+  //''عملت هيك علشان هاى القيم ممنوع تكون نل
   factory Tutor.empty() => Tutor(
         id: '',
         name: '',

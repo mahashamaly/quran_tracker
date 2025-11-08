@@ -21,6 +21,7 @@ class AppDatabase {
   /// تهيئة قاعدة البيانات
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
+
     final path = join(dbPath, filePath);
 
     return await openDatabase(
@@ -235,4 +236,24 @@ class AppDatabase {
     final path = join(dbPath, 'quran_tracker.db');
     await deleteDatabase(path);
   }
+
+
+/************ */
+// في AppDatabase class
+
+Future<Student?> getStudentById(String id) async {
+  final db = await database; // افترض أنك عندك getter باسم database
+  final maps = await db.query(
+    'students',
+    where: 'id = ?',
+    whereArgs: [id],
+  );
+
+  if (maps.isNotEmpty) {
+    return Student.fromMap(maps.first); // افترض أن عندك fromMap لتحويل البيانات لكائن Student
+  } else {
+    return null;
+  }
+}
+
 }

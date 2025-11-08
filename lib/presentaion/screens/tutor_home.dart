@@ -16,6 +16,7 @@ class _TutorHomePageState extends State<TutorHomePage> {
   String tutorId = '';
   String tutorName = '';
   String tutorEmail = '';
+  //قائمة الطلاب الذين يتبعون هذا المحفظ
   List<Student> students = [];
 
   @override
@@ -29,6 +30,7 @@ class _TutorHomePageState extends State<TutorHomePage> {
     tutorId = prefs.getString('tutorId') ?? prefs.getString('userId') ?? '';
     tutorName = prefs.getString('tutorName') ?? '';
     tutorEmail = prefs.getString('tutorEmail') ?? '';
+    //التحقق إذا كان معرف المحفظ موجودًا
     if (tutorId.isNotEmpty) {
       final data = await AppDatabase.instance.getStudentsByTutorId(tutorId);
       setState(() {
@@ -36,7 +38,7 @@ class _TutorHomePageState extends State<TutorHomePage> {
       });
     }
   }
-
+//لإعادة تحميل قائمة الطلاب بعد أي عملية تعديل أو حذف.
   void _loadStudents() async {
     final data = await AppDatabase.instance.getStudentsByTutorId(tutorId);
     setState(() {

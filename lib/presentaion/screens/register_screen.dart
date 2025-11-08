@@ -26,6 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final Uuid uuid = const Uuid(); // لإنشاء ID فريد
 
   // حفظ الجلسة
+  //الفكرة: بعد تسجيل الدخول، التطبيق يعرف من هو المستخدم وكم الدور، حتى لو أغلق التطبيق.
   Future<void> _saveSession(String id, String role) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('userId', id);
@@ -36,36 +37,25 @@ class _RegisterPageState extends State<RegisterPage> {
   void _register() async {
     if (_formKey.currentState!.validate()) {
       //هذا المعرف يُستخدم لتعريف المحفظ داخل قاعدة البيانات.
+      //uuid.v4() يعطي معرف فريد عشوائي لكل مستخدم، لتجنب التكرار في قاعدة البيانات.
       final id = uuid.v4();
 
       try {
+        //💡 الفكرة: هنا نربط بين ما كتبه المستخدم في الحقول وبين قاعدة البيانات.
         // تسجيل "محفظ"
         if (_role == 'محفظ') {
+          // إنشاء كائن Tutor
           final tutor = Tutor(
             id: id,
             name: _nameController.text,
             email: _emailController.text.trim(),
             password: _passwordController.text.trim(),
           );
+          //تخزين الكائن في قاعدة البيانات
           await AppDatabase.instance.insertTutor(tutor);
         }
 
-        // تسجيل "حافظ"
-        // else if (_role == 'حافظ') {
-        //   final student = Student(
-        //     id: id,
-        //     name: _nameController.text,
-        //     email: _emailController.text.trim(),
-        //     password: _passwordController.text.trim(),
-        //     currentSurah: '',
-        //     memorizedParts: 0,
-        //     totalParts: 30,
-        //     evaluation: '',
-        //     notes: '',
-        //     tutorId: '', 
-        //   );
-        //   await AppDatabase.instance.insertStudent(student);
-        // }
+      
 
         // تسجيل "مشرف"
         else if (_role == 'مشرف') {

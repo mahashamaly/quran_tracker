@@ -38,15 +38,14 @@ class MyApp extends StatelessWidget {
       Routes.registerPage:(context)=>const RegisterPage(),
       Routes.login:(context)=>const LoginPage(),
       Routes.teacherHomePage:(context)=>const TutorHomePage (),
-      //Routes.studentHome:(context)=>const StudentHome(),
+      Routes.studentHome:(context)=>const StudentHomePage(),
       Routes.adminHome:(context)=>const AdminHomePage(),
       },
       
       
+
       
-      
-      
-      
+   
       
       
       
